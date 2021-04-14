@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
 
 using UnityEngine;
 //using ferram4;
 
-namespace ASE
+namespace AtmosphericSoundEnhancement
 {
     public interface IAtmoDataProvider
     {
@@ -60,11 +58,11 @@ namespace ASE
         //    try
         //    {
         //        var foo = FARControlSys.activeMach;
-        //        Debug.Log("ASE: FAR is available.");
+        //        Log.dbg("ASE: FAR is available.");
         //        return true;
         //    }
         //    catch (Exception) { }
-        //    Debug.Log("ASE: FAR is missing. Using fallback implementation.");
+        //    Log.dbg("ASE: FAR is missing. Using fallback implementation.");
         //    return false;
         //}
     }

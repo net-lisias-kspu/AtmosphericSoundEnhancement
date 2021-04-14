@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using UnityEngine;
 
-namespace ASE
+namespace AtmosphericSoundEnhancement
 {
     [KSPAddon(KSPAddon.Startup.Flight, false)]
     public class AtmosphericSoundEnhancement : MonoBehaviour
@@ -209,7 +208,7 @@ namespace ASE
         #region Persistence
         public void SaveConfig()
         {
-            Debug.Log("ASE -- Saving settings: " + InteriorVolumeScale + " " + InteriorMaxFreq + " " + LowerMachThreshold + " " + UpperMachThreshold + " " + MaxDistortion + " " + CondensationEffectStrength + " " + MaxVacuumFreq + " " + MaxSupersonicFreq);
+            Log.dbg("Saving settings: {0} {1} {2} {3} {4} {5} {6} {7}", InteriorVolumeScale, InteriorMaxFreq, LowerMachThreshold, UpperMachThreshold, MaxDistortion, CondensationEffectStrength, MaxVacuumFreq, MaxSupersonicFreq);
             Config.SetValue("InteriorVolumeScale", InteriorVolumeScale.ToString());
             Config.SetValue("InteriorMaxFreq", InteriorMaxFreq.ToString());
             Config.SetValue("LowerMachThreshold", LowerMachThreshold.ToString());
@@ -235,7 +234,7 @@ namespace ASE
                                                                );
             MaxVacuumFreq = Config.GetValue<float>("MaxVacuumFreq", MaxVacuumFreq);
             MaxSupersonicFreq = Config.GetValue<float>("MaxSupersonicFreq", MaxSupersonicFreq);
-            Debug.Log("ASE -- Loaded settings: " + InteriorVolumeScale + " " + InteriorMaxFreq + " " + LowerMachThreshold + " " + UpperMachThreshold + " " + MaxDistortion + " " + CondensationEffectStrength + " " + MaxVacuumFreq + " " + MaxSupersonicFreq);
+            Log.dbg("Loaded settings: {0} {1} {2} {3} {4} {5} {6} {7}", InteriorVolumeScale, InteriorMaxFreq, LowerMachThreshold, UpperMachThreshold, MaxDistortion, CondensationEffectStrength, MaxVacuumFreq, MaxSupersonicFreq);
         }
         #endregion Persistence
 
@@ -247,7 +246,7 @@ namespace ASE
             CurrentState = Soundscape.Interior;
             if (CurrentState != LastState)
             {
-                Debug.Log("ASE -- Switching to Interior");
+                Log.dbg("Switching to Interior");
                 foreach (ASEFilterPanel aPanel in AudioPanels)
                 {
                     aPanel.SetKnobs(Knobs.lowpass, InteriorMaxFreq);
@@ -263,7 +262,7 @@ namespace ASE
             CurrentState = Soundscape.Vacuum;
             if (CurrentState != LastState)
             {
-                Debug.Log("ASE -- Switching to Vacuum");
+                Log.dbg("Switching to Vacuum");
                 if (MaxVacuumFreq < MinLowPassFreq)// Vacuum is set to silent.
                     foreach (ASEFilterPanel aPanel in AudioPanels)
                         aPanel.SetKnobs(Knobs.volume | Knobs.lowpass | Knobs.reverb | Knobs.distortion, -1);
@@ -284,7 +283,7 @@ namespace ASE
         {
             CurrentState = Soundscape.BeforeShockwave;
             if (CurrentState != LastState)
-                Debug.Log("ASE -- Switching to Before Shock");
+                Log.dbg("Switching to Before Shock");
             if (MaxSupersonicFreq < MinLowPassFreq)
             {
                 // Silent ahead of the shockwave.
@@ -325,7 +324,7 @@ namespace ASE
         {
             CurrentState = Soundscape.PositiveSlope;
             if (CurrentState != LastState)
-                Debug.Log("ASE -- Switching to Rising Edge");
+                Log.dbg("Switching to Rising Edge");
             float volume = Mathf.Lerp((1f - ShockwaveEffectStrength), 1f, (positiveSlopeEdgeDeg - CameraAngle) / positiveSlopeWidthDeg);
             float dynEffect = (positiveSlopeEdgeDeg - CameraAngle) / positiveSlopeWidthDeg * ShockwaveEffectStrength * MaxDistortion;
             foreach (ASEFilterPanel aPanel in AudioPanels)
@@ -344,7 +343,7 @@ namespace ASE
         {
             CurrentState = Soundscape.NegativeSlope;
             if (CurrentState != LastState)
-                Debug.Log("ASE -- Switching to Falling Edge");
+                Log.dbg("Switching to Falling Edge");
             float dynEffect = ((CameraAngle - negativeSlopeEdgeDeg) / NegativeSlopeWidthDeg) * ShockwaveEffectStrength * MaxDistortion;
             foreach (ASEFilterPanel aPanel in AudioPanels)
             {
@@ -361,7 +360,7 @@ namespace ASE
         {
             CurrentState = Soundscape.AfterShockwave;
             if (CurrentState != LastState)
-                Debug.Log("ASE -- Switching to After Shock");
+                Log.dbg("Switching to After Shock");
             foreach (ASEFilterPanel aPanel in AudioPanels)
             {
                 aPanel.SetKnobs(Knobs.volume, MaxShipVolume);
@@ -375,7 +374,7 @@ namespace ASE
         {
             CurrentState = Soundscape.NormalFlight;
             if (CurrentState != LastState)
-                Debug.Log("ASE -- Switching to Normal Atmospheric Flight");
+                Log.dbg("Switching to Normal Atmospheric Flight");
             foreach (ASEFilterPanel aPanel in AudioPanels)
             {
                 aPanel.SetKnobs(Knobs.volume, MaxShipVolume);
@@ -406,7 +405,7 @@ namespace ASE
             int apc = AudioPanels.Count;
             AudioPanels.RemoveAll(item => item.input == null);
             /*if (apc != AudioPanels.Count)
-                Debug.Log("ASE -- removed " + (apc - AudioPanels.Count) + " panels.");*/
+                Log.dbg("removed {0} panels.", (apc - AudioPanels.Count));*/
 
             // Wait until all craft have been loaded. The first fixed update is fired before this.
             if (_fixedUpdateCount >= 2)
@@ -469,8 +468,8 @@ namespace ASE
                     AeroFX.fudge1 = 3;
                     AeroFX.state = 1;
                 }
-                //else
-                    //Debug.Log("ASE -- AeroFX: Invalid state!");
+                else
+                    Log.dbg("AeroFX: Invalid state!");
             }
         }
         #endregion Graphical effects

@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using UnityEngine;
 
-namespace ASE
+namespace AtmosphericSoundEnhancement
 {
     /// <summary>
     /// Control knobs for adjusting filters.
@@ -56,7 +53,7 @@ namespace ASE
                 distortion = gameObj.GetComponent<AudioDistortionFilter>();
                 if (distortion == null)
                 {
-                    //Debug.Log("ASE -- Adding distortion filter");
+                    Log.dbg("Adding distortion filter");
                     distortion = gameObj.AddComponent<AudioDistortionFilter>();
                 }
             }
@@ -65,7 +62,7 @@ namespace ASE
                 reverb = gameObj.GetComponent<AudioReverbFilter>();
                 if (reverb == null)
                 {
-                    //Debug.Log("ASE -- Adding reverb filter");
+                    Log.dbg("Adding reverb filter");
                     reverb = gameObj.AddComponent<AudioReverbFilter>();
                 }
             }
@@ -74,7 +71,7 @@ namespace ASE
                 lowpass = gameObj.GetComponent<AudioLowPassFilter>();
                 if (lowpass == null)
                 {
-                    //Debug.Log("ASE -- Adding low-pass filter");
+                    Log.dbg("Adding low-pass filter");
                     lowpass = gameObj.AddComponent<AudioLowPassFilter>();
                 }
                 lowpass.lowpassResonaceQ = 0f;
@@ -94,13 +91,13 @@ namespace ASE
             {
                 if (setting >= 0)
                 {
-                    //Debug.Log("ASE -- Setting low-pass filter to " + setting);
+                    Log.dbg("Setting low-pass filter to {0}", setting);
                     lowpass.enabled = true;
                     lowpass.cutoffFrequency = setting;
                 }
                 else
                 {
-                    //Debug.Log("ASE -- Disabling-low pass filter");
+                    Log.dbg("Disabling-low pass filter");
                     lowpass.enabled = false;
                 }
             }
@@ -108,13 +105,13 @@ namespace ASE
             {
                 if (setting >= 0)
                 {
-                    //Debug.Log("ASE -- Setting distortion filter to " + setting);
+                    Log.dbg("Setting distortion filter to {0}", setting);
                     distortion.enabled = true;
                     distortion.distortionLevel = setting;
                 }
                 else
                 {
-                    //Debug.Log("ASE -- Disabling distortion filter");
+                    Log.dbg("Disabling distortion filter");
                     distortion.enabled = false;
                 }
             }
@@ -122,25 +119,25 @@ namespace ASE
             {
                 if (setting >= 0)
                 {
-                    //Debug.Log("ASE -- Setting reverb filter to " + setting);
+                    Log.dbg("Setting reverb filter to {0}", setting);
                     reverb.enabled = true;
                     reverb.reverbLevel = setting;
                 }
                 else
                 {
-                    //Debug.Log("ASE -- Disabling reverb filter");
+                    Log.dbg("Disabling reverb filter");
                     reverb.enabled = false;
                 }
             }
             if ((select & Knobs.volume) == Knobs.volume)
                 if (setting >= 0)
                 {
-                    //Debug.Log("ASE -- Setting volume to " + setting);
+                    Log.dbg("Setting volume to {0}", setting);
                     input.volume = setting;
                 }
                 else
                 {
-                    //Debug.Log("ASE -- Muting volume");
+                    Log.dbg("Muting volume");
                     input.volume = 0;
                 }
         }
