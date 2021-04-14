@@ -1,5 +1,7 @@
 # Atmospheric Sound Enhancement :: Change Log
 
+* 2015-0505: 2.2.0.0 (pizzahead) for KSP 1.0
+	+ Fixed incompatibility with 1.0 
 * 2014-0603: 2.1.1.0 (pizzahead) for KSP 0.23.5
 	+ Rebuild for KSP 0.23
 * 2013-1127: 2.1.0.0 (pizzahead) for KSP 0.22 -- MIA 
