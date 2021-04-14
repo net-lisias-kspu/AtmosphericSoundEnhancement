@@ -1,38 +1,15 @@
-# Generic ignore patterns
-*~
-*.o
-*.a
-*.moc
-.git
-
-# Logs etc.
-**/*.log
-
-# Windows project stuff
-**/bin
-**/obj
-**/*.suo
-*.cache
-
-# Monodevelop project stuff
-**/*.userprefs
-**/*.pidb
-
-# Windows runtime
-*.exe
-*.ilk
-*.pdb
-*.msi
-
-# Windows clutter
-*.db
-
-# no need to distribute KSP binaries
-Assembly-CSharp.dll
-Assembly-CSharp-firstpass.dll
-UnityEngine.dll
-mscorlib.dll
-**/*.dll
-
-# retain select files
-#!file.txt
+.vs
+Archive
+GameData/**/*.dll
+GameData/**/LICENSE*
+GameData/**/NOTICE
+GameData/**/README.md
+GameData/**/CHANGE_LOG.md
+GameData/**/KNOWN_ISSUES.md
+GameData/**/*.version
+Source/**/Properties/Version.cs
+Source/**/Properties/Configuration.cs
+Source/*/*.user
+bin
+obj
+packages

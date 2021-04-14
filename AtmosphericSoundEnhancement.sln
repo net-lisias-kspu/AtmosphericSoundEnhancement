@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtmosphericSoundEnhancement", "AtmosphericSoundEnhancement\AtmosphericSoundEnhancement.csproj", "{9EA42AF1-29D3-4995-B79B-BE4C9C5E21C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtmosphericSoundEnhancement", "Source\AtmosphericSoundEnhancement\AtmosphericSoundEnhancement.csproj", "{9EA42AF1-29D3-4995-B79B-BE4C9C5E21C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
